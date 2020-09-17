@@ -2,29 +2,85 @@
 title: "Project 1 Vignette"
 author: "DRV"
 date: "9/16/2020"
-output: html_document
+output: rmarkdown::github_document toc: yes
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+###### Packages required to create this vignette: 
+httr, jsonlite, dplyr 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r ContactAPIs}
+library(httr)
+library(jsonlite)
+library(dplyr)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### Franchise Data 
+url1 <- "https://records.nhl.com/site/api/franchise"
+call1 <- paste(url1)
+get_franchise <- GET(call1)
+get_franshise_text <- content(get_franchise, "text")
+get_franshise_json <- fromJSON(get_franshise_text, flatten=TRUE)
+get_franshise_df <- as.data.frame(get_franshise_json)
 
-```{r cars}
-summary(cars)
+### Franchise team Totals 
+url2 <- "https://records.nhl.com/site/api/franchise-team-totals"
+call2 <- paste(url2)
+get_ftt <- GET(call2)
+get_ftt_text <- content(get_ftt, "text")
+get_ftt_json <- fromJSON(get_ftt_text, flatten=TRUE)
+get_ftt_df <- as.data.frame(get_ftt_json)
+
+### All Time Record vs. Franchise 
+url3 <- "https://records.nhl.com/site/api/all-time-record-vs-franchise?cayenneExp=teamFranchiseId="
+function1 <- function(teamID){paste(url3,teamID,sep="")}
+call3 <- function1("1")
+get_atrvf <- GET(call3)
+get_atrvf_text <- content(get_atrvf, "text")
+get_atrvf_json <- fromJSON(get_atrvf_text, flatten=TRUE)
+get_atrvf_df <- as.data.frame(get_atrvf_json)
+
+### Franshice Goalie Records 
+url4 <- "https://records.nhl.com/site/api/franchise-goalie-records?cayenneExp=franchiseId="
+function2 <- function(teamID){paste(url4,teamID,sep="")}
+call4 <- function2("1")
+get_fgr <- GET(call4)
+get_fgr_text <- content(get_fgr, "text")
+get_fgr_json <- fromJSON(get_fgr_text, flatten=TRUE)
+get_fgr_df <- as.data.frame(get_fgr_json)
+
+### Franchise Skater Records 
+url5 <- "https://records.nhl.com/site/api/franchise-skater-records?cayenneExp=franchiseId="
+function3 <- function(teamID){paste(url5,teamID)}
+call5 <- function3("1")
+get_fsr <- GET(call5)
+get_fsr_text <- content(get_fsr, "text")
+get_fsr_json <- fromJSON(get_fsr_text, flatten=TRUE)
+get_fsr_df <- as.data.frame(get_fsr_json)
+
+### NHL Stats Data 
+url6 <- "https://statsapi.web.nhl.com/api/v1/teams/"
+function4 <- function(teamID, modifier){paste(url6, teamID, modifier, sep="")}
+call6 <- function4("1", "?expand=team.roster")
+get_stats <- GET(call6)
+get_stats_text <- content(get_stats, "text")
+get_stats_json <- fromJSON(get_stats_text, flatten=TRUE)
+get_stats_df <- as.data.frame(get_stats_json)
+  
+### Wrapper Function 
+
+function5 <- function(url, teamID, modifier){
+  call7 <- paste(url, teamID, modifier, sep="") 
+  get_data <- GET(call7) 
+  get_data_text <- content(get_data, "text") 
+  get_data_json <- fromJSON(get_data_text, flatten=TRUE) 
+  get_data_df <- as.data.frame(get_data_json)
+  }
+
+### Testing Wrapper Function
+get_data_df <- function5("https://statsapi.web.nhl.com/api/v1/teams/","2","?expand=team.roster")
+
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

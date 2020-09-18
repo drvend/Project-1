@@ -1,8 +1,11 @@
 ---
 title: "Project 1 Vignette"
 author: "DRV"
-date: "9/16/2020"
-output:  rmarkdown::github_document
+date: "9/18/2020"
+output: 
+rmarkdown::github_document:
+  toc: TRUE 
+  toc_depth: 6 
 ---
 
 ```{r setup, include=TRUE}

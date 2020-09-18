@@ -12,10 +12,6 @@ rmarkdown::github_document:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r render, include=TRUE, eval=FALSE}
-library(rmarkdown)
-render("C:/Users/drven/Documents/ST 558/Project-1/Proj1Vignette.Rmd", output_file= "README.md")
-```
 ##### Packages required to create this vignette: 
 httr, jsonlite, dplyr, ggplot2, knitr, rmarkdown
 

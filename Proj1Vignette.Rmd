@@ -3,7 +3,7 @@ title: "Project 1 Vignette"
 author: "DRV"
 date: "9/16/2020"
 output: rmarkdown::github_document toc: yes
-    toc_depth: 2
+    toc_depth: 4
 ---
 
 ```{r setup, include=FALSE}
@@ -11,9 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ###### Packages required to create this vignette: 
-httr, jsonlite, dplyr 
+httr, jsonlite, dplyr, ggplot2, knitr
 
-```{r ContactAPIs}
+###Contacting API
+```{r ContactAPIs, include=TRUE}
 library(httr)
 library(jsonlite)
 library(dplyr)
@@ -54,8 +55,8 @@ get_fgr_df <- as.data.frame(get_fgr_json)
 
 ### Franchise Skater Records 
 url5 <- "https://records.nhl.com/site/api/franchise-skater-records?cayenneExp=franchiseId="
-function3 <- function(teamID){paste(url5,teamID)}
-call5 <- function3("1")
+function3 <- function(teamID){paste(url5,teamID, sep="")}
+call5 <- function3(1)
 get_fsr <- GET(call5)
 get_fsr_text <- content(get_fsr, "text")
 get_fsr_json <- fromJSON(get_fsr_text, flatten=TRUE)
@@ -82,5 +83,49 @@ function5 <- function(url, teamID, modifier){
 
 ### Testing Wrapper Function
 get_data_df <- function5("https://statsapi.web.nhl.com/api/v1/teams/","2","?expand=team.roster")
+
+```
+### Exploratory Data Analysis 
+# Joining Franchise Team Totals and Franchise Goalie Records on "data.franchiseId" 
+```{r EDA, include=TRUE}
+joined_data <- inner_join(get_ftt_df, get_fgr_df, by = c("data.franchiseId" =  "data.franchiseId"))
+```
+
+# Creating two new variables 
+```{r NewVars, include=TRUE}
+
+joined_data <- mutate(GamesCat = ifelse(joined_data$data.gamesPlayed.x > 800, "many", "notsomany")) %>% mutate(average_goals = (data.goalsFor/data.gamesPlayed.x)) %>% mutate(ThirdCatvar = ifelse())
+```
+# Contingency tables 
+```{r Contingency include=TRUE}
+library(knitr)
+table1 <- table(joined_data$data.franchiseName, joined_data$data.lastName, exclude)
+table2 <- table()
+```
+# Bar Plot
+```{r Bar, include=TRUE}
+library(ggplot2)
+ggplot(get_fgr_df, aes(x = data.lastName, y = data.mostSavesOneGame), na.rm=TRUE) + geom_col()+ggtitle("Goalies - Most Saeves In One Game") + ylab("Saves in One Game") + scale_fill_brewer(palette = "Blues") 
+
+```
+# Histogram
+```{r Histogram, include=TRUE}
+ggplot(joined_data, aes(x = joined_data$data.shutouts)) + geom_histogram(bins = 10) + ggtitle("Histogram for Number of Shutouts") + ylab("Density") + geom_density(col = "red", lwd = 3, adjust = 2)
+```
+# Box Plot 
+```{r BoxPlot, include=TRUE}
+library(ggplot2)
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + geom_boxplot() + 
+  geom_jitter(aes(color = Species)) + ggtitle("Boxplot for Sepal Length")
+```
+
+# Scatter Plot 
+```{r Scatter, include=TRUE}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, group = Species)) + geom_point(aes(color = Species)) +     
+   geom_smooth(method = 'lm', color = 'green') + ggtitle("Sepal Length vs Sepal Width")
+```
+# Final Plot 
+```{r Final, include=True}
+
 
 ```

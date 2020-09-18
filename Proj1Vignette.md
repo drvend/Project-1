@@ -22,7 +22,20 @@ httr, jsonlite, dplyr, ggplot2, knitr, rmarkdown
 library(httr)
 library(jsonlite)
 library(dplyr)
+```
 
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
 ### Franchise Data 
 url1 <- "https://records.nhl.com/site/api/franchise"
 call1 <- paste(url1)
@@ -234,15 +247,15 @@ library(ggplot2)
 ggplot(get_fgr_df, aes(x = data.lastName, y = data.mostSavesOneGame, color = data.lastName, fill=data.lastName)) + theme(axis.text.x=element_text(angle=90,hjust=1),legend.position = "none") + geom_col()+ggtitle("Montreal Canadians Goalies - Most Saves In One Game") + xlab("Goalie Last Name") + ylab("Saves in One Game") 
 ```
 
-![](README_files/figure-gfm/Bar-1.png)<!-- --> \#\#\# Histogram This
-histogram shows that the majority of the canadians goalies had a max of
-between 4 and 8 goals scored against them.
+![](Proj1Vignette_files/figure-gfm/Bar-1.png)<!-- --> \#\#\# Histogram
+This histogram shows that the majority of the canadians goalies had a
+max of between 4 and 8 goals scored against them.
 
 ``` r
 ggplot(get_fgr_df, aes(x = data.mostGoalsAgainstOneGame)) + geom_histogram(bins = 10) + ggtitle("Histogram for Most Goals Against in One Game") 
 ```
 
-![](README_files/figure-gfm/Histogram-1.png)<!-- -->
+![](Proj1Vignette_files/figure-gfm/Histogram-1.png)<!-- -->
 
 ### Box Plot
 
@@ -256,7 +269,7 @@ ggplot(get_fgr_df, aes(x = CareerWP500, y = data.gamesPlayed)) + geom_boxplot() 
   geom_jitter(aes(color = CareerWP500)) + ggtitle("Canadians Goalies Total Games Stratified by Win Percentage") + xlab("Over or below .500 Win %") + ylab("Number of games played in Career")
 ```
 
-![](README_files/figure-gfm/BoxPlot-1.png)<!-- -->
+![](Proj1Vignette_files/figure-gfm/BoxPlot-1.png)<!-- -->
 
 # Scatter Plot
 
@@ -271,7 +284,7 @@ ggplot(get_fgr_df, aes(x = data.gamesPlayed, y =((data.gamesPlayed-data.losses)/
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/Scatter-1.png)<!-- -->
+![](Proj1Vignette_files/figure-gfm/Scatter-1.png)<!-- -->
 
 # Final Plot
 
@@ -286,4 +299,4 @@ ggplot(get_fsr_df, aes(x = data.penaltyMinutes, y = data.points, group = data.po
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/Final-1.png)<!-- -->
+![](Proj1Vignette_files/figure-gfm/Final-1.png)<!-- -->

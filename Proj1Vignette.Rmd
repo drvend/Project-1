@@ -43,7 +43,7 @@ function1 <- function(team){paste(url3,team,sep="")}
 
 team <- "Bruins" #Insert Team Common Name or ID here 
 
-call3 <- function1(ifelse(is.integer(team), team, switch(team, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
+call3 <- function1(ifelse(is.numeric(team), team, switch(team, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
 
 get_atrvf <- GET(call3)
 get_atrvf_text <- content(get_atrvf, "text")
@@ -54,9 +54,9 @@ get_atrvf_df <- as.data.frame(get_atrvf_json)
 url4 <- "https://records.nhl.com/site/api/franchise-goalie-records?cayenneExp=franchiseId="
 function2 <- function(team2){paste(url4,team2,sep="")}
 
-team2 <- "Canadians" #Insert Team Common name or ID here 
+team2 <- 8 #Insert Team Common name or ID here 
 
-call4 <- function2(ifelse(is.integer(team2), team2, switch(team2, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
+call4 <- function2(ifelse(is.numeric(team2), team2, switch(team2, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
 
 get_fgr <- GET(call4)
 get_fgr_text <- content(get_fgr, "text")
@@ -70,7 +70,7 @@ team3 <- "Bruins" #Insert Team Common name or ID here
 
 function3 <- function(team3){paste(url5,team3, sep="")}
 
-call5 <- function3(ifelse(is.integer(team3), team3, switch(team3, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
+call5 <- function3(ifelse(is.numeric(team3), team3, switch(team3, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)))
 
 get_fsr <- GET(call5)
 get_fsr_text <- content(get_fsr, "text")
@@ -83,7 +83,7 @@ function4 <- function(team4, modifier){paste(url6, team4, modifier, sep="")}
 
 team4 <- "Bruins" #Insert Team Common name or ID here
 
-call6 <- function4(ifelse(is.integer(team3), team4, switch(team4, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)), "?expand=team.roster")
+call6 <- function4(ifelse(is.numeric(team3), team4, switch(team4, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)), "?expand=team.roster")
 
 get_stats <- GET(call6)
 get_stats_text <- content(get_stats, "text")
@@ -93,7 +93,7 @@ get_stats_df <- as.data.frame(get_stats_json)
 ### Wrapper Function need to add name coercer 
 
 function5 <- function(url, team5, modifier){
-  call7 <- paste(url, ifelse(is.integer(team5), team5, switch(team5, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)), modifier, sep="") 
+  call7 <- paste(url, ifelse(is.numeric(team5), team5, switch(team5, "Canadians" = 8, "Wanderers" = 41, "Eagles" = 45, "Tigers" = 37, "Maple Leafs" = 10, "Bruins" = 6, "Maroons" = 43, "Americans" = 51, "Quakers" = 39, "Rangers" = 3, "Blackhawks" = 16, "Red Wings" = 17, "Barons" = 49, "Kings" = 26, "Stars" = 25, "Flyers" = 4, "Penguins" = 5, "Blues" = 19, "Sabres" = 7, "Canucks" = 23, "Flames" = 20, "Islanders" = 2, "Devils" = 1, "Capitals" = 15, "Oilers" = 22, "Hurricanes" = 12, "Avalanche" = 21, "Coyotes" = 23, "Sharks" = 28, "Senators" = 9, "Lightening" =14, "Ducks" = 24, "Panthers" = 13, "Predators" = 18, "Jets" = 52, "Blue Jackets" = 29, "Wild" = 30, "Golden Knights" = 54)), modifier, sep="") 
   get_data <- GET(call7) 
   get_data_text <- content(get_data, "text") 
   get_data_json <- fromJSON(get_data_text, flatten=TRUE) 

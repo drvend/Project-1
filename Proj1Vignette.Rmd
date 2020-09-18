@@ -94,38 +94,58 @@ joined_data <- inner_join(get_ftt_df, get_fgr_df, by = c("data.franchiseId" =  "
 # Creating two new variables 
 ```{r NewVars, include=TRUE}
 
-joined_data <- mutate(GamesCat = ifelse(joined_data$data.gamesPlayed.x > 800, "many", "notsomany")) %>% mutate(average_goals = (data.goalsFor/data.gamesPlayed.x)) %>% mutate(ThirdCatvar = ifelse())
+get_fgr_df <- mutate(get_fgr_df, DepthChart= ifelse(get_fgr_df$data.gamesPlayed > 100, "Starter", "Backup")) 
+
+get_fgr_df <- mutate(get_fgr_df, CareerWP500 = ifelse((get_fgr_df$data.gamesPlayed-get_fgr_df$data.losses)/data.gamesPlayed > .5, "Over500", "Under500"))
+
 ```
 # Contingency tables 
 ```{r Contingency include=TRUE}
 library(knitr)
-table1 <- table(joined_data$data.franchiseName, joined_data$data.lastName, exclude)
-table2 <- table()
+firstctable <- table(get_fgr_df$data.activePlayer, get_fgr_df$DepthChart)
+kable(firstctable, caption = "Contingency Table for Player Status(Active/Not Active) vs. Experience More/Less than 100 games(Backup/Starter")
+
+secondctable <- table(get_fgr_df$data.gamesPlayed, get_fgr_df$WP500)
+kable(secondctable, caption = "Contingency table for Games Played vs. Career WP > .500")
 ```
+# Numerical Summaries for Numerical Variables grouped by Categorical Variables
+```{r NumericalSummaries, include=TRUE}
+ntable <- get_fgr_df %>% group_by(DepthChart) %>% summarise(avg = mean(data.wins), med = median(data.wins), var = var(data.wins))
+
+kable(ntable)
+
+ntable2 <- get_fgr_df %>% group_by(WP500) %>% summarise(avg = mean(data.mostShutoutsOneSeason), med = median(data.mostShutoutsOneSeason), var = var(data.mostShutoutsOneSeason))
+
+kable(ntable2)
+```
+
 # Bar Plot
 ```{r Bar, include=TRUE}
 library(ggplot2)
-ggplot(get_fgr_df, aes(x = data.lastName, y = data.mostSavesOneGame), na.rm=TRUE) + geom_col()+ggtitle("Goalies - Most Saeves In One Game") + ylab("Saves in One Game") + scale_fill_brewer(palette = "Blues") 
+ggplot(get_fgr_df, aes(x = data.lastName, y = data.mostSavesOneGame, color = data.lastName, fill=data.lastName)) + theme(axis.text.x=element_text(angle=90,hjust=1),legend.position = "none") + geom_col()+ggtitle("Montreal Canadians Goalies - Most Saves In One Game") + xlab("Goalie Last Name") + ylab("Saves in One Game") 
 
 ```
 # Histogram
 ```{r Histogram, include=TRUE}
-ggplot(joined_data, aes(x = joined_data$data.shutouts)) + geom_histogram(bins = 10) + ggtitle("Histogram for Number of Shutouts") + ylab("Density") + geom_density(col = "red", lwd = 3, adjust = 2)
+ggplot(get_fgr_df, aes(x = data.mostGoalsAgainstOneGame)) + geom_histogram(bins = 10) + ggtitle("Histogram for Most Goals Against in One Game") 
 ```
+
 # Box Plot 
 ```{r BoxPlot, include=TRUE}
 library(ggplot2)
-ggplot(iris, aes(x = Species, y = Sepal.Length)) + geom_boxplot() + 
-  geom_jitter(aes(color = Species)) + ggtitle("Boxplot for Sepal Length")
+ggplot(get_fgr_df, aes(x = WP500, y = data.gamesPlayed)) + geom_boxplot() + 
+  geom_jitter(aes(color = WP500)) + ggtitle("Boxplot for WP500") + xlab("Over or below .500 Win %") + ylab("Number of games played in Career")
 ```
 
 # Scatter Plot 
 ```{r Scatter, include=TRUE}
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, group = Species)) + geom_point(aes(color = Species)) +     
-   geom_smooth(method = 'lm', color = 'green') + ggtitle("Sepal Length vs Sepal Width")
+ggplot(get_fgr_df, aes(x = data.gamesPlayed, y =((data.gamesPlayed-data.losses)/data.gamesPlayed) , group = WP500)) + geom_point(aes(color = WP500)) +     
+   geom_smooth(method = 'lm', color = 'green') + ggtitle("Games played vs. Win Percentage")+ xlab("Games Played in Career") + ylab("Win %")
 ```
+
 # Final Plot 
 ```{r Final, include=True}
-
+ggplot(get_fsr_df, aes(x = data.penaltyMinutes, y = data.points, group = data.positionCode)) + geom_point(aes(color = data.positionCode)) +     
+   geom_smooth(method = 'lm', color = "red") + ggtitle("Penalty Minutes vs. Points")+ xlab("Penalty Minutes") + ylab("Points")
 
 ```
